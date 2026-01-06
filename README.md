@@ -39,71 +39,62 @@ Navigate to [http://localhost:3000/admin](http://localhost:3000/admin)
 
 For full setup instructions including authentication, see [DECAP_CMS_GUIDE.md](./DECAP_CMS_GUIDE.md)
 
-Quick setup:
-1. Create a Sanity account at [sanity.io](https://www.sanity.io/)
-2. Create a new project and get your Project ID
-3. Create `.env.local` with your Sanity credentials:
-
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
-```
-
-### 3. Run Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your website.
-
-### 4. Access Sanity Studio
-
-Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to manage your poems!
-
 ## Creating Your First Poem
 
-1. Go to `http://localhost:3000/studio`
-2. Sign in with your Sanity account
-3. Click "Poems" → "Create new Poem"
+### Via CMS Dashboard (after Netlify setup):
+1. Go to `http://localhost:3000/admin`
+2. Log in with your GitHub account (via Netlify Identity)
+3. Click "Poems" → "New Poems"
 4. Fill in:
    - **Title** - Your poem's title
-   - **Slug** - Auto-generate from title
-   - **Poem Body** - Write your poem with rich text formatting
+   - **Theme** - Choose: Light, Dark, or Vintage
    - **Cover Image** - Upload a beautiful cover image
-   - **Theme** - Choose: Elegant Light, Dark Academia, or Vintage Typewriter
+   - **Body** - Write your poem in markdown
    - **Excerpt** - Short preview for the home page
 5. Click "Publish"!
+
+### Via Direct File Edit (works immediately):
+1. Create a file in `/content/poems/my-poem.md`
+2. Use this format:
+```markdown
+---
+title: "My Poem"
+date: 2026-01-06T12:00:00.000Z
+theme: "Light"
+image: "https://example.com/image.jpg"
+excerpt: "A short preview..."
+---
+
+Your poem content here...
+```
 
 ## Project Structure
 
 ```
 ├── app/
 │   ├── layout.tsx          # Root layout with font configuration
-│   ├── page.tsx            # Homepage with poem grid (CMS-powered)
+│   ├── page.tsx            # Homepage with poem grid
 │   ├── poem/[slug]/        # Dynamic poem detail pages
-│   ├── studio/             # Sanity Studio CMS dashboard
 │   ├── library/            # Library page
 │   ├── about/              # About page
 │   └── globals.css         # Global styles
 ├── components/
 │   ├── Navigation.tsx      # Top navigation bar
 │   ├── PoemCard.tsx        # Reusable poem card component
-│   └── PortableText.tsx    # Rich text renderer for poems
+│   ├── PaginatedPoems.tsx  # Pagination component
+│   └── PoemDetailClient.tsx # Poem detail renderer
 ├── lib/
 │   ├── types.ts            # TypeScript interfaces
 │   ├── data.ts             # Sample poem data (fallback)
-│   ├── sanity.ts           # Sanity client configuration
-│   ├── queries.ts          # GROQ queries for fetching poems
-│   └── image.ts            # Sanity image URL builder
-├── sanity/
-│   ├── schemas/
-│   │   ├── poem.ts         # Poem schema definition
-│   │   ├── blockContent.ts # Rich text schema
-│   │   └── index.ts        # Schema exports
-│   └── structure.ts        # Studio structure customization
-├── sanity.config.ts        # Main Sanity configuration
+│   └── markdown.ts         # Markdown file reader
+├── content/
+│   └── poems/              # Your poems stored as .md files
+├── public/
+│   ├── admin/              # Decap CMS dashboard
+│   │   ├── index.html
+│   │   └── config.yml
+│   └── images/
+│       └── uploads/        # Uploaded images
 └── public/                 # Static assets
 ```
 
@@ -112,33 +103,32 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 - **Framework:** Next.js 15 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **CMS:** Sanity.io
+- **CMS:** Decap CMS (Git-based, 100% free)
+- **Content:** Markdown files with gray-matter
 - **Icons:** Lucide React
 - **Fonts:** Google Fonts (next/font)
-- **Image Handling:** Sanity CDN + Next.js Image Optimization
 
 ## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
-- `npm run sanity` - Access Sanity CLI commands
 
 ## Theme Customization
 
 Each poem can have one of three themes:
 
-### Elegant Light
+### Light
 - Soft gradient background (amber to rose)
 - Perfect for romantic, uplifting poems
 - Light, airy feel
 
-### Dark Academia
+### Dark
 - Dark, moody background
 - Ideal for dramatic, introspective poems
 - High contrast for impact
 
-### Vintage Typewriter
+### Vintage
 - Warm yellow/amber tones
 - Great for nostalgic, classic poems
 - Reminiscent of vintage paper

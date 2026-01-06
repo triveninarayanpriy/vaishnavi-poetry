@@ -10,8 +10,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function PoemPage({ params }: { params: { slug: string } }) {
-  const poem = getPoemBySlug(params.slug);
+export default async function PoemPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const poem = getPoemBySlug(slug);
 
   if (!poem) {
     notFound();

@@ -2,7 +2,7 @@
 title: "Welcome to Your Poetry Dashboard"
 date: 2026-01-06T12:00:00.000Z
 theme: "Light"
-image: "/images/uploads/sample-poetry.jpg"
+image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop"
 excerpt: "This is a sample poem to demonstrate your new CMS. You can edit or delete this from the admin dashboard!"
 ---
 
