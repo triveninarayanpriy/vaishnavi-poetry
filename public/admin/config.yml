@@ -1,0 +1,45 @@
+backend:
+  name: git-gateway
+  branch: main # Your GitHub repository branch
+
+# Uncomment below for local development
+# local_backend: true
+
+media_folder: "public/images/uploads" # Where uploaded images will be stored
+public_folder: "/images/uploads" # The public path to access uploaded images
+
+collections:
+  - name: "poems" # Used in routes
+    label: "Poems" # Used in the UI
+    folder: "content/poems" # Where markdown files are stored
+    create: true # Allow users to create new poems
+    slug: "{{slug}}" # Filename template
+    fields: # Fields for each poem
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { 
+          label: "Theme", 
+          name: "theme", 
+          widget: "select", 
+          options: ["Light", "Dark", "Vintage"],
+          default: "Light"
+        }
+      - { 
+          label: "Cover Image", 
+          name: "image", 
+          widget: "image",
+          required: false
+        }
+      - { 
+          label: "Excerpt", 
+          name: "excerpt", 
+          widget: "text",
+          required: false,
+          hint: "A short preview of your poem (2-3 lines)"
+        }
+      - { 
+          label: "Body", 
+          name: "body", 
+          widget: "markdown",
+          hint: "Write your poem here. Use Enter for line breaks!"
+        }
